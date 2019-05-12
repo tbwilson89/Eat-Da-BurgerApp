@@ -12,13 +12,14 @@ var orm = {
   },
 
   insertOne: function(table, cols, vals, cb){
-    let queryString = `INSERT INTO ${table} (${cols.toString()}) VALUES (${vals.length > 0 ? '? '.repeat(vals.length).trim() : ''})`
+    let queryString = `INSERT INTO ${table} (${cols.toString()}) VALUES (${vals.length > 0 ? Array(vals.length).fill('?').toString() : ''})`
+    console.log(queryString)
     connection.query(queryString, vals, function(err, result){
       if(err){throw err}
       cb(result)
     })
   },
-  
+
   updateOne: function(table, objColVals, condition, cb){
     let colVals = []
     console.log(objColVals)
